@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardHeader, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Progress } from "./ui/progress";
+import { Alert, AlertDescription } from "./ui/alert";
 import { Brain, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
 // Question types based on learning styles

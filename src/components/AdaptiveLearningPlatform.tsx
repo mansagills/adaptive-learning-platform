@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import React from 'react';
+import { Card, CardHeader, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Progress } from "./ui/progress";
 import { Award, BookOpen, Brain, Star } from 'lucide-react';
+import { AdaptiveLearningPlatformProps } from './types';
 
 // Learning styles enumeration
 const LearningStyles = {
@@ -25,41 +26,9 @@ const subjects = {
   }
 };
 
-const AdaptiveLearningPlatform = () => {
-  const [studentProfile, setStudentProfile] = useState({
-    learningStyle: LearningStyles.VISUAL,
-    currentSkillLevels: {},
-    achievements: [],
-    progress: {}
-  });
-
-  // Adaptive difficulty adjustment based on performance
-  const adjustDifficulty = (subject, skill, performance) => {
-    const currentLevel = studentProfile.currentSkillLevels[`${subject}-${skill}`] || 1;
-    const newLevel = performance > 0.8 ? currentLevel + 1 : 
-                     performance < 0.4 ? currentLevel - 1 : 
-                     currentLevel;
-    
-    setStudentProfile(prev => ({
-      ...prev,
-      currentSkillLevels: {
-        ...prev.currentSkillLevels,
-        [`${subject}-${skill}`]: Math.max(1, Math.min(5, newLevel))
-      }
-    }));
-  };
-
-  // Track progress for each subject
-  const updateProgress = (subject, skill, completion) => {
-    setStudentProfile(prev => ({
-      ...prev,
-      progress: {
-        ...prev.progress,
-        [`${subject}-${skill}`]: completion
-      }
-    }));
-  };
-
+export default function AdaptiveLearningPlatform({ 
+  studentProfile
+}: AdaptiveLearningPlatformProps) {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <header className="mb-8">
@@ -81,7 +50,6 @@ const AdaptiveLearningPlatform = () => {
               <Button
                 key={style}
                 variant={studentProfile.learningStyle === style ? "default" : "outline"}
-                onClick={() => setStudentProfile(prev => ({ ...prev, learningStyle: style }))}
                 className="capitalize"
               >
                 {style}
@@ -151,6 +119,4 @@ const AdaptiveLearningPlatform = () => {
       </Card>
     </div>
   );
-};
-
-export default AdaptiveLearningPlatform;
+}

@@ -1,10 +1,11 @@
 'use client';  // Add this to use client-side features like useState
 
-import { useEffect, useState } from 'react';
-import AdaptiveLearningPlatform from '@/components/learning/AdaptiveLearningPlatform';
-import AdaptiveAssessment from '@/components/learning/AdaptiveAssessment';
-import AdaptiveLearningEngine from '@/components/learning/AdaptiveLearningEngine';
+import { useState } from 'react';
+import AdaptiveLearningPlatform from '@/components/AdaptiveLearningPlatform';
+import AdaptiveAssessment from '@/components/AdaptiveAssessment';
+import AdaptiveLearningEngine from '@/components/AdaptiveLearningEngine';
 import type { StudentProfile } from '@/types/learning';
+import type { PerformanceData } from '@/components/AdaptiveAssessment/types';
 
 export default function Home() {
   const [studentProfile, setStudentProfile] = useState<StudentProfile>({
@@ -14,7 +15,7 @@ export default function Home() {
     progress: {}
   });
 
-  const handlePerformanceUpdate = (performanceData: any) => {
+  const handlePerformanceUpdate = (performanceData: PerformanceData) => {
     setStudentProfile(prev => ({
       ...prev,
       currentSkillLevels: {
@@ -49,7 +50,6 @@ export default function Home() {
         
         <AdaptiveLearningPlatform 
           studentProfile={studentProfile}
-          onProfileUpdate={setStudentProfile}
         />
         
         <AdaptiveAssessment
